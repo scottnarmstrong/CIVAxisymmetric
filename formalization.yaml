@@ -1,0 +1,442 @@
+# Metadata schema version.
+version: "v0.4"
+
+project:
+  name: "CIVAxisymmetric"
+  description: >-
+    A Lean 4 / Mathlib formalization of the main results of Constantin,
+    Ignatova and Vicol on the regularity of asymptotically axisymmetric
+    solutions of the three-dimensional Navier-Stokes equations with analytic
+    forcing (arXiv:2609.20803). A suitable weak solution on the unit parabolic
+    cylinder, smooth before the blow-up time, whose force is bounded in C^2 up
+    to the blow-up time and real analytic in space, whose angular mean
+    satisfies anisotropic Type II bounds, and which is exactly axisymmetric on
+    a ball around the axis at every time, is axisymmetric and regular at the
+    putative singular point (Theorem 1.1); the axisymmetric theorem
+    (Theorem 1.3), the meridional smallness proposition, the consequences for
+    the force (Corollary 2.3) and the lemmas of Sections 3 and 5 are
+    formalized with it. The interior analyticity theorem of Kahane, the
+    interior estimates of Serrin and the regularity criterion of Gustafson,
+    Kang and Tsai, in the forms the paper uses, are proved rather than
+    assumed. The thirteen results use only the standard axioms and build on
+    the Lean formalization of the Caffarelli-Kohn-Nirenberg theorem; five of
+    them are restated in a Mathlib-only comparator challenge and proved from
+    the library theorems.
+  authors:
+    - "Scott Armstrong"
+    - "Vlad Vicol"
+  responsible_maintainers:
+    - "Scott Armstrong"
+    - "Vlad Vicol"
+  affiliations:
+    - "Scott Armstrong: CNRS and Laboratoire Jacques-Louis Lions, Sorbonne Université; Courant Institute School of Mathematics, Computing, and Data Science, New York University"
+    - "Vlad Vicol: Department of Mathematics, Courant Institute School of Mathematics, Computing, and Data Science, New York University"
+  license: "Apache-2.0"
+  funding:
+    - "Scott Armstrong was supported by the European Research Council (ERC) under the European Union's Horizon Europe research and innovation programme, grant agreement No. 101200828."
+    - "Vlad Vicol was partially supported by the Collaborative NSF grant DMS-2307681 and by a Simons Investigator Award."
+
+classification:
+  arxiv: ["math.AP"]
+  msc2020: ["35Q30", "35B44", "35Q31"]
+
+sources:
+  - title: "Regularity of asymptotically axisymmetric solutions to the 3D Navier-Stokes equations with analytic forcing"
+    authors:
+      - "Peter Constantin"
+      - "Mihaela Ignatova"
+      - "Vlad Vicol"
+    id: "arXiv:2609.20803"
+    url: "https://arxiv.org/abs/2609.20803"
+    type: "paper"
+    relationship: "formalizes"
+    note: >-
+      The TeX source (arXiv:2609.20803v1) is included as
+      paper/NSE_Anisotropic_Pointwise.tex and is cited throughout the Lean
+      sources by its LaTeX labels. The Lean development follows its proof;
+      the departures (D1 to D18) are recorded in docs/DEVIATIONS.md and the
+      representation choices in docs/DESIGN_NOTES.md. One of the formalizers
+      (Vlad Vicol) is an author of the paper.
+    license: ""
+    author_contacted: "yes"
+    prior_work: "Caffarelli, Kohn and Nirenberg (1982); Kahane (1969); Serrin (1962); Gustafson, Kang and Tsai (2007); Koch, Nadirashvili, Seregin and Šverák (2009); DiPerna and Lions (1989)"
+  - title: "On the spatial analyticity of solutions of the Navier-Stokes equations"
+    authors:
+      - "C. Kahane"
+    id: "doi:10.1007/BF00247697"
+    type: "paper"
+    relationship: "independently-proves"
+    note: >-
+      Theorem 1.2 and p. 387 (interior spatial analyticity with a
+      nonconservative force) is the paper's Theorem 2.1, formalized as
+      CIV.interiorAnalyticity. The Lean proof uses pointwise heat-kernel
+      Cauchy estimates instead of Kahane's scheme (docs/DEVIATIONS.md, D12).
+    license: ""
+    author_contacted: "no"
+    prior_work: ""
+  - title: "On the interior regularity of weak solutions of the Navier-Stokes equations"
+    authors:
+      - "J. Serrin"
+    id: "doi:10.1007/BF00253344"
+    type: "paper"
+    relationship: "independently-proves"
+    note: >-
+      The interior derivative estimates of Section 4 (with m = 1), uniform up
+      to the blow-up time as the paper uses them, are formalized as
+      CIV.serrinInteriorEstimates. The Lean proof uses heat and Newtonian
+      potentials of the vorticity instead of Serrin's representation formulas
+      (docs/DEVIATIONS.md, D13).
+    license: ""
+    author_contacted: "no"
+    prior_work: ""
+  - title: "Interior regularity criteria for suitable weak solutions of the Navier-Stokes equations"
+    authors:
+      - "S. Gustafson"
+      - "K. Kang"
+      - "T.-P. Tsai"
+    id: "doi:10.1007/s00220-007-0214-6"
+    type: "paper"
+    relationship: "independently-proves"
+    note: >-
+      Theorem 1.1(i) with p_* = 6 and q = 4, applied at the top boundary
+      point (0,0), is formalized as CIV.gktCriterion; Theorem 1.1(ii), used by
+      the paper for the singular set at the blow-up time, is replaced by the
+      interior partial-regularity argument behind CIV.timeZeroSingularSetNull.
+      Both Lean proofs go through the Caffarelli-Kohn-Nirenberg
+      formalization (docs/DEVIATIONS.md, D1, D7 and D10).
+    license: ""
+    author_contacted: "no"
+    prior_work: ""
+  - title: "Partial regularity of suitable weak solutions of the Navier-Stokes equations"
+    authors:
+      - "Luis Caffarelli"
+      - "Robert Kohn"
+      - "Louis Nirenberg"
+    id: "doi:10.1002/cpa.3160350604"
+    type: "paper"
+    relationship: "background"
+    note: >-
+      The suitable weak-solution class and the partial regularity theory are
+      taken from the Lean formalization of this theorem, a Lake dependency of
+      this project.
+    license: ""
+    author_contacted: "no"
+    prior_work: ""
+
+related_formalizations:
+  - title: "CaffarelliKohnNirenberg: a Lean 4 formalization of the Caffarelli-Kohn-Nirenberg partial regularity theorem for the Navier-Stokes equations"
+    url: "https://github.com/scottnarmstrong/CaffarelliKohnNirenberg"
+    relationship: "dependency"
+    note: >-
+      Pinned by commit in lakefile.toml and lake-manifest.json. This project
+      uses its carriers (Vec3, ParabolicPoint), its suitable weak-solution
+      class IsSuitableWeakSolution, its Theorem A and pressure estimates, and
+      its Sobolev, mollifier and potential library, through public
+      declarations only.
+
+status:
+  scope: >-
+    Complete for the thirteen library results listed under main_results (its
+    five CIVChallenge entries are the comparator restatements of five of them):
+    Theorem 1.1
+    (thm:main), Theorem 1.3 (thm:aniso:main), Proposition 1.5
+    (prop:aniso:small), Theorem 2.1 (thm:analytic:interior, Kahane),
+    Corollary 2.3 (cor:interior:nonanalytic), Lemmas 3.1, 3.2, 3.3 (both
+    assertions) and 5.1, and the three results the paper cites from the
+    literature in the forms its proofs use them (Serrin's interior estimates,
+    the Gustafson-Kang-Tsai criterion at the top boundary point, and the
+    vanishing one-dimensional Hausdorff measure of the singular set at the
+    blow-up time). The solution class is CKN's IsSuitableWeakSolution with a
+    force exponent q, together with the paper's energy class on the whole
+    cylinder up to the blow-up time; smoothness on compact subsets is
+    smoothness on the open cylinder, and cylindrical quantities are read on
+    the meridional plane (docs/DESIGN_NOTES.md). Not formalized, and not used
+    by any of the thirteen results: the divergence-free correction of the
+    force in footnote foot:aniso:pressure (a Dirichlet problem on the ball),
+    the smooth expansions of an axisymmetric field near the axis (Whitney's
+    even-function representation), Remark 2.4 (rem:interior:approximate) and
+    Remark 5.2 (rem:interior:meridional). The remarks rem:exterior:nonanalytic and
+    rem:force:symmetry are proved as supporting results. The other remarks are not stated as
+    separate results, and Appendix A of the paper is outside the scope.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms:
+    - "propext"
+    - "Classical.choice"
+    - "Quot.sound"
+  main_results:
+    - declaration: "CIV.mainTheorem"
+      file: "CIV/Statements/MainTheorem.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+    - declaration: "CIV.axisymmetricTheorem"
+      file: "CIV/Statements/AxisymmetricTheorem.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+    - declaration: "CIV.meridionalSmallness"
+      file: "CIV/Statements/MeridionalSmallnessProp.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+    - declaration: "CIV.interiorAnalyticity"
+      file: "CIV/Statements/InteriorAnalyticity.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+    - declaration: "CIV.forceUnderCore"
+      file: "CIV/Statements/ForceUnderCore.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+    - declaration: "CIV.axisMaximumPrinciple"
+      file: "CIV/Statements/AxisMaximumPrinciple.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "CIV.regularAnnulus"
+      file: "CIV/Statements/RegularAnnulus.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "CIV.comparison"
+      file: "CIV/Statements/Comparison.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "CIV.comparisonAncient"
+      file: "CIV/Statements/ComparisonAncient.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "CIV.closureLemma"
+      file: "CIV/Statements/ClosureLemma.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "CIV.serrinInteriorEstimates"
+      file: "CIV/Statements/SerrinInteriorEstimates.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "CIV.gktCriterion"
+      file: "CIV/Statements/GktCriterion.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "CIV.timeZeroSingularSetNull"
+      file: "CIV/Statements/TimeZeroSingularSetNull.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      literature_dependencies: []
+    - declaration: "CIVChallenge.mainTheorem"
+      file: "comparators/Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+    - declaration: "CIVChallenge.axisymmetricTheorem"
+      file: "comparators/Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+    - declaration: "CIVChallenge.meridionalSmallness"
+      file: "comparators/Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+    - declaration: "CIVChallenge.interiorAnalyticity"
+      file: "comparators/Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+    - declaration: "CIVChallenge.forceUnderCore"
+      file: "comparators/Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+
+automation:
+  methods:
+    - method: "agent"
+      models:
+        - "leanstral"
+        - "claude-opus"
+        - "claude-sonnet"
+        - "gpt-6-astra"
+      framework: >-
+        A Claude Code session coordinated Leanstral agents (the primary Lean
+        writers), Claude Sonnet and Claude Opus agents (the harder proofs and
+        the proof designs of the Kahane, Serrin, Gustafson-Kang-Tsai and
+        comparison results) and independent reviewers (Claude Opus and GPT-6
+        Astra in Codex), under the authors' supervision.
+      tool_setup: >-
+        Lean 4 and Mathlib v4.35.0-rc2, with the CKN formalization as a Lake
+        dependency. The theorem statements were approved by the authors before
+        proof development and fixed by content hash during it. Every result
+        was accepted only after an independent review against the paper.
+        Verification uses guarded builds with warnings as errors, source-rule
+        and axiom checks, and Mathlib-only comparator statements with an
+        independent NanoDa replay; the commands are documented in
+        docs/VERIFICATION.md and run by the repository's CI workflows.
+      cost:
+        wall_time: "about 46 hours of development until the last of the thirteen results was proved, plus release preparation"
+        spend_usd: "not separately tracked (subscriptions)"
+        hardware: "one 16-CPU / 124 GB RAM Linux machine"
+      prompting_notes: >-
+        The authors determined the mathematical statements. Agents received
+        the exact Lean statement to prove together with the paper passage;
+        separate reviews compared each formal statement with the paper and
+        checked each proof for hypotheses that do not occur in the paper.
+
+  spend_usd: "not separately tracked (subscriptions)"
+  notes: >-
+    All Lean code was written by the listed models under the supervision of
+    the authors, who decided the mathematics and the statements. Every proof
+    is checked by the Lean kernel; the library contains no sorry and no custom
+    axiom. The Mathlib-only comparators/Challenge.lean contains exactly five
+    intentional theorem-body placeholders; the separate Solution.lean proves
+    the same named declarations from the library, and comparator.json selects
+    all five.
+
+fidelity:
+  divergences: >-
+    Recorded in docs/DEVIATIONS.md (D1 to D18) and docs/DESIGN_NOTES.md. No
+    main result's statement is changed; the supporting statements are stated in
+    the form the proofs consume, which in a few places is less than the printed
+    text (docs/DEVIATIONS.md, scope of the supporting statements). The main
+    proof departures: Kahane's
+    theorem and Serrin's estimates are proved by pointwise heat-kernel and
+    Newtonian-potential estimates (D12, D13); the Gustafson-Kang-Tsai
+    criterion at the top boundary is proved through CKN's Theorem A and the
+    Lin pressure estimate (D10), and the singular set at the blow-up time is
+    handled by a uniform interior partial-regularity argument (D1, D7); the
+    comparison lemma uses a smooth convex energy and Fubini reference times
+    (D11); in Section 4 the limiting drift is extracted through time
+    primitives (D14), the finite-axis compactness goes through the azimuthal
+    vorticity (D15), and the finite-axis limit equation is obtained with a
+    cutoff at the axis (D17); the elliptic bounds of Section 5 are applied to
+    the velocity instead of its meridional part (D9). Representation choices:
+    the solution class carries the paper's energy class on the whole cylinder
+    as a separate hypothesis, the regular-point conclusion is boundedness on
+    a backward cylinder at the blow-up time, and cylindrical derivatives are
+    read on the meridional plane.
+
+review:
+  status: "author-verified"
+  reviewers:
+    - "Scott Armstrong"
+    - "Vlad Vicol"
+  notes: >-
+    Lean checks each proof against its formal statement. The authors
+    reviewed that the statements are the intended theorems; every statement
+    was also compared with the paper by independent read-only review agents,
+    and the five comparator declarations are checked mechanically. This is
+    not external peer review.
+
+alignment:
+  namespace: "CIV"
+  statements:
+    - source: "Theorem 1.1 (thm:main), regularity under anisotropic Type II bounds and analytic forcing"
+      lean: "CIV.mainTheorem"
+      module: "CIV.Statements.MainTheorem"
+      status: "proved"
+      note: "Comparator pair comparators/{Challenge,Solution}.lean."
+    - source: "Theorem 1.3 (thm:aniso:main), regularity of axisymmetric solutions under anisotropic bounds"
+      lean: "CIV.axisymmetricTheorem"
+      module: "CIV.Statements.AxisymmetricTheorem"
+      status: "proved"
+      note: "Comparator pair comparators/{Challenge,Solution}.lean."
+    - source: "Proposition 1.5 (prop:aniso:small), smallness of the meridional quantities"
+      lean: "CIV.meridionalSmallness"
+      module: "CIV.Statements.MeridionalSmallnessProp"
+      status: "proved"
+      note: "Comparator pair comparators/{Challenge,Solution}.lean."
+    - source: "Theorem 2.1 (thm:analytic:interior), interior spatial analyticity (Kahane)"
+      lean: "CIV.interiorAnalyticity"
+      module: "CIV.Statements.InteriorAnalyticity"
+      status: "proved"
+      note: "Comparator pair comparators/{Challenge,Solution}.lean."
+    - source: "Corollary 2.3 (cor:interior:nonanalytic), the force under an axisymmetric core"
+      lean: "CIV.forceUnderCore"
+      module: "CIV.Statements.ForceUnderCore"
+      status: "proved"
+      note: "Comparator pair comparators/{Challenge,Solution}.lean."
+    - source: "Lemma 3.1 (lem:aniso:axis), maximum principle for functions vanishing on the axis"
+      lean: "CIV.axisMaximumPrinciple"
+      module: "CIV.Statements.AxisMaximumPrinciple"
+      status: "proved"
+      note: "Stated in the meridional variables (docs/DESIGN_NOTES.md, R9)."
+    - source: "Lemma 3.2 (lem:aniso:annulus), a regular annulus and bounded circulation"
+      lean: "CIV.regularAnnulus"
+      module: "CIV.Statements.RegularAnnulus"
+      status: "proved"
+      note: ""
+    - source: "Lemma 3.3 (lem:aniso:comparison), comparison for a bounded distributional solution: first assertion"
+      lean: "CIV.comparison"
+      module: "CIV.Statements.Comparison"
+      status: "proved"
+      note: ""
+    - source: "Lemma 3.3 (lem:aniso:comparison), ancient assertion under eq:aniso:ancient:decay"
+      lean: "CIV.comparisonAncient"
+      module: "CIV.Statements.ComparisonAncient"
+      status: "proved"
+      note: ""
+    - source: "Lemma 5.1 (lem:aniso:closure), smallness of the meridional quantities implies regularity"
+      lean: "CIV.closureLemma"
+      module: "CIV.Statements.ClosureLemma"
+      status: "proved"
+      note: ""
+    - source: "Serrin's interior estimates (Serrin 1962, Section 4, m = 1), as used in the proof of Lemma 3.2"
+      lean: "CIV.serrinInteriorEstimates"
+      module: "CIV.Statements.SerrinInteriorEstimates"
+      status: "proved"
+      note: "Uniform up to the blow-up time."
+    - source: "The Gustafson-Kang-Tsai criterion (Theorem 1.1(i), p_* = 6, q = 4) at (0,0), as used in the proof of Lemma 5.1"
+      lean: "CIV.gktCriterion"
+      module: "CIV.Statements.GktCriterion"
+      status: "proved"
+      note: ""
+    - source: "H^1(S_0) = 0 for the singular set at the blow-up time, as used in the proof of Lemma 3.2"
+      lean: "CIV.timeZeroSingularSetNull"
+      module: "CIV.Statements.TimeZeroSingularSetNull"
+      status: "proved"
+      note: ""
+    - source: "Footnote foot:aniso:pressure, divergence-free correction of the force"
+      lean: ""
+      module: ""
+      status: "not formalized"
+      note: "Not needed: CKN's solution class admits a general force (docs/DESIGN_NOTES.md, R1)."
+    - source: "Smooth expansions of an axisymmetric field near the axis (paragraph after eq:aniso:circulation:pde)"
+      lean: ""
+      module: ""
+      status: "not formalized"
+      note: "Avoided by deviations D9 and D17."
+    - source: "Remark 2.4 (rem:interior:approximate)"
+      lean: ""
+      module: ""
+      status: "not formalized"
+      note: ""
+    - source: "Remark 5.2 (rem:interior:meridional)"
+      lean: ""
+      module: ""
+      status: "not formalized"
+      note: ""
+
+acknowledgements: >-
+  Scott Armstrong was supported by the European Research Council (ERC) under the
+  European Union's Horizon Europe research and innovation programme (grant
+  agreement No. 101200828). Vlad Vicol was partially supported by the
+  Collaborative NSF grant DMS-2307681 and by a Simons Investigator Award. Built
+  on Lean 4, Mathlib, Lake and the Lean formalization of the
+  Caffarelli-Kohn-Nirenberg theorem.

@@ -1,0 +1,64 @@
+cff-version: 1.2.0
+message: >-
+  If you use this formalization, please cite it as below, together with the
+  paper it formalizes. Scott Armstrong was supported by the European Research
+  Council (ERC) under the European Union's Horizon Europe research and
+  innovation programme, grant agreement No. 101200828. Vlad Vicol was partially
+  supported by the Collaborative NSF grant DMS-2307681 and by a Simons
+  Investigator Award.
+title: "CIVAxisymmetric: a Lean 4 formalization of the regularity of asymptotically axisymmetric solutions to the 3D Navier-Stokes equations with analytic forcing"
+version: "1.0"
+abstract: >-
+  A machine-checked Lean 4 / Mathlib formalization of the main results of
+  Constantin, Ignatova and Vicol, "Regularity of asymptotically axisymmetric
+  solutions to the 3D Navier-Stokes equations with analytic forcing"
+  (arXiv:2609.20803): a suitable weak solution on the unit parabolic cylinder,
+  smooth before the blow-up time, whose force is bounded in C^2 and spatially
+  real analytic, whose angular mean satisfies anisotropic Type II bounds and
+  which is exactly axisymmetric on a core around the axis at every time, is
+  axisymmetric and regular at the putative singular point. The thirteen
+  formalized results, including the interior analyticity theorem of Kahane,
+  the interior estimates of Serrin and the regularity criterion of Gustafson,
+  Kang and Tsai in the forms the paper uses, are proved using only the
+  standard axioms, on top of the Lean formalization of the
+  Caffarelli-Kohn-Nirenberg theorem, with Mathlib-only comparator challenges
+  for five of them.
+type: software
+authors:
+  - family-names: Armstrong
+    given-names: Scott
+    affiliation: "CNRS and Laboratoire Jacques-Louis Lions, Sorbonne Université; Courant Institute School of Mathematics, Computing, and Data Science, New York University"
+  - family-names: Vicol
+    given-names: Vlad
+    affiliation: "Courant Institute School of Mathematics, Computing, and Data Science, New York University, New York, NY 10012"
+keywords:
+  - Lean
+  - mathlib
+  - formal verification
+  - Navier-Stokes equations
+  - axisymmetric solutions
+  - regularity
+license: Apache-2.0
+repository-code: "https://github.com/scottnarmstrong/CIVAxisymmetric"
+references:
+  - type: article
+    title: "Regularity of asymptotically axisymmetric solutions to the 3D Navier-Stokes equations with analytic forcing"
+    authors:
+      - family-names: Constantin
+        given-names: Peter
+      - family-names: Ignatova
+        given-names: Mihaela
+      - family-names: Vicol
+        given-names: Vlad
+    identifiers:
+      - type: other
+        value: "arXiv:2609.20803"
+    url: "https://arxiv.org/abs/2609.20803"
+  - type: software
+    title: "CaffarelliKohnNirenberg: a Lean 4 formalization of the Caffarelli-Kohn-Nirenberg partial regularity theorem for the Navier-Stokes equations"
+    authors:
+      - family-names: Armstrong
+        given-names: Scott
+      - family-names: Vicol
+        given-names: Vlad
+    repository-code: "https://github.com/scottnarmstrong/CaffarelliKohnNirenberg"

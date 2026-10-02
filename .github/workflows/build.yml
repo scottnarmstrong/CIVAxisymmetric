@@ -1,0 +1,132 @@
+name: Build and verify
+
+"on":
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: ${{ github.event.repository.private && 180 || 90 }}
+    env:
+      # This checkout is disposable; never weaken the guard in a developer tree.
+      CIV_MAIN_CHECKOUT: ${{ github.workspace }}/../civ-protected-main
+      # The CKN dependency compiles from source into .lake/packages/CKN/.lake/build
+      # during the guarded build; generated package build trees are outside the
+      # source-mutation guard here (source trees remain guarded).
+      CIV_IGNORE_PACKAGE_BUILD: "1"
+      CIV_LEAN_SLOTS: "3"
+      # Use fewer Lean threads on private-repository runners.
+      LEAN_NUM_THREADS: ${{ github.event.repository.private && '1' || '3' }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout the event revision
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: Check revision and runner capacity
+        run: |
+          set -Eeuo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          # Only remove preinstalled, unused SDKs on disposable hosted runners.
+          if [[ "${RUNNER_ENVIRONMENT:-}" == github-hosted ]]; then
+            sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
+          fi
+          df -h .
+          free -h
+          available_kib="$(df -Pk . | awk 'NR==2 {print $4}')"
+          test "$available_kib" -ge 20971520
+
+      - name: Install the pinned Lean toolchain
+        run: |
+          set -Eeuo pipefail
+          pinned_toolchain="$(tr -d '[:space:]' < lean-toolchain)"
+          test "$pinned_toolchain" = leanprover/lean4:v4.35.0-rc2
+          if ! command -v elan >/dev/null 2>&1; then
+            curl --proto '=https' --tlsv1.2 -sSf \
+              https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+              | sh -s -- -y --default-toolchain "$pinned_toolchain"
+            export PATH="$HOME/.elan/bin:$PATH"
+          fi
+          export PATH="$(dirname "$(command -v elan)"):$PATH"
+          printf '%s\n' "$(dirname "$(command -v elan)")" >> "$GITHUB_PATH"
+          if ! elan toolchain list | awk '{print $1}' | grep -Fqx "$pinned_toolchain"; then
+            elan toolchain install "$pinned_toolchain"
+          fi
+          lean --version
+          lake --version
+
+      # Clones every dependency (Mathlib and CKN) and unpacks the Mathlib
+      # oleans. CKN has no olean cache; it compiles from source below.
+      - name: Fetch Mathlib dependency artifacts
+        run: lake exe cache get
+
+      # Restored after the clone above, so the package directory exists and the
+      # restored oleans are newer than the freshly cloned sources.
+      - name: Restore the CKN dependency build
+        uses: actions/cache@v4
+        with:
+          path: .lake/packages/CKN/.lake/build
+          key: ckn-build-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+
+      - name: Build CIV from source
+        run: python3 scripts/build.py --fresh CIV
+
+      - name: Check public files
+        run: python3 scripts/check_public.py
+
+      - name: Check all library declaration axioms
+        run: python3 scripts/check_axioms.py --root .
+
+      - name: Check the main results directly
+        run: |
+          set -Eeuo pipefail
+          # One "<module> <declaration>" pair per main result, in step with
+          # main_results in scripts/verify_fresh_clone.sh.
+          main_results=(
+            "CIV.Statements.AxisMaximumPrinciple CIV.axisMaximumPrinciple"
+            "CIV.Statements.TimeZeroSingularSetNull CIV.timeZeroSingularSetNull"
+            "CIV.Statements.GktCriterion CIV.gktCriterion"
+            "CIV.Statements.Comparison CIV.comparison"
+            "CIV.Statements.ComparisonAncient CIV.comparisonAncient"
+            "CIV.Statements.InteriorAnalyticity CIV.interiorAnalyticity"
+            "CIV.Statements.SerrinInteriorEstimates CIV.serrinInteriorEstimates"
+            "CIV.Statements.RegularAnnulus CIV.regularAnnulus"
+            "CIV.Statements.ClosureLemma CIV.closureLemma"
+            "CIV.Statements.MeridionalSmallnessProp CIV.meridionalSmallness"
+            "CIV.Statements.AxisymmetricTheorem CIV.axisymmetricTheorem"
+            "CIV.Statements.MainTheorem CIV.mainTheorem"
+            "CIV.Statements.ForceUnderCore CIV.forceUnderCore"
+          )
+          probe_dir="$(mktemp -d)"
+          trap 'rm -rf -- "$probe_dir"' EXIT
+          {
+            for pair in "${main_results[@]}"; do printf 'import %s\n' "${pair%% *}"; done
+            for pair in "${main_results[@]}"; do printf '#print axioms %s\n' "${pair##* }"; done
+          } > "$probe_dir/MainAxioms.lean"
+          scripts/lean_direct.sh "$probe_dir/MainAxioms.lean" \
+            -DautoImplicit=false -DwarningAsError=true | tee "$probe_dir/axioms.log"
+          python3 - "$probe_dir/axioms.log" "${main_results[@]}" <<'PY'
+          import pathlib, sys
+          names = [pair.split()[1] for pair in sys.argv[2:]]
+          expected = [f"'{n}' depends on axioms: [propext, Classical.choice, Quot.sound]"
+                      for n in names]
+          actual = pathlib.Path(sys.argv[1]).read_text().splitlines()
+          if actual != expected:
+              raise SystemExit(f'MAIN RESULT AXIOMS FAIL: {actual!r}')
+          print(f'MAIN RESULT AXIOMS PASS: all {len(names)} exact standard axiom sets')
+          PY

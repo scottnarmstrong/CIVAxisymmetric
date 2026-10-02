@@ -1,0 +1,29 @@
+name = "CIVAxisymmetric"
+version = "1.0.0"
+defaultTargets = ["CIV"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "v4.35.0-rc2"
+
+# The Caffarelli–Kohn–Nirenberg formalization: suitable weak solutions,
+# regular points, Theorem A and the Sobolev and potential library.
+[[require]]
+name = "CKN"
+git = "https://github.com/scottnarmstrong/CaffarelliKohnNirenberg.git"
+rev = "381d658ead0f03a18361965cc0427ce3fa5844ab"
+
+# The library: the main-result statements (CIV/Statements) and their proofs.
+[[lean_lib]]
+name = "CIV"
+globs = ["CIV"]
+leanOptions = { autoImplicit = false, warningAsError = true }
+
+# Independent Mathlib-level statements of the main results and their proofs
+# from the library; see comparators/README.md.
+[[lean_lib]]
+name = "Comparators"
+globs = ["comparators.+"]
+leanOptions = { autoImplicit = false }

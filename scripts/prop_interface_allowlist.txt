@@ -1,0 +1,4 @@
+# Reviewed tracked Prop interfaces with a source-level instantiating declaration.
+# Format: qualified declaration | definition location | instantiating declaration.
+# Uninstantiated and hypothesis-only definitions are documented in
+# the census written by scripts/prop_interfaces.py and must not be copied into this file.
