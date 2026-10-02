@@ -124,11 +124,14 @@ sources:
     prior_work: ""
 
 related_formalizations:
-  - title: "CaffarelliKohnNirenberg: a Lean 4 formalization of the Caffarelli-Kohn-Nirenberg partial regularity theorem for the Navier-Stokes equations"
+  - id: "https://github.com/scottnarmstrong/CaffarelliKohnNirenberg"
+    title: "CaffarelliKohnNirenberg: a Lean 4 formalization of the Caffarelli-Kohn-Nirenberg partial regularity theorem for the Navier-Stokes equations"
     url: "https://github.com/scottnarmstrong/CaffarelliKohnNirenberg"
-    relationship: "dependency"
+    relationship: "builds-on"
     note: >-
-      Pinned by commit in lakefile.toml and lake-manifest.json. This project
+      A Lake dependency, pinned in lakefile.toml and lake-manifest.json to the
+      exact commit 381d658ead0f03a18361965cc0427ce3fa5844ab (both libraries
+      use Lean's module system). This project
       uses its carriers (Vec3, ParabolicPoint), its suitable weak-solution
       class IsSuitableWeakSolution, its Theorem A and pressure estimates, and
       its Sobolev, mollifier and potential library, through public
