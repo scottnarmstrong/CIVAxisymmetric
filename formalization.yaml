@@ -2,7 +2,7 @@
 version: "v0.4"
 
 project:
-  name: "CIVAxisymmetric"
+  name: "Regularity of asymptotically axisymmetric Navier–Stokes solutions with analytic forcing"
   description: >-
     A Lean 4 / Mathlib formalization of the main results of Constantin,
     Ignatova and Vicol on the regularity of asymptotically axisymmetric
