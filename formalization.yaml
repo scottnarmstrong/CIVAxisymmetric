@@ -239,31 +239,31 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       literature_dependencies: []
     - declaration: "CIVChallenge.mainTheorem"
-      file: "comparators/Solution.lean"
+      file: "comparators/AxisymmetricSolution.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
       literature_dependencies: []
     - declaration: "CIVChallenge.axisymmetricTheorem"
-      file: "comparators/Solution.lean"
+      file: "comparators/AxisymmetricSolution.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
       literature_dependencies: []
     - declaration: "CIVChallenge.meridionalSmallness"
-      file: "comparators/Solution.lean"
+      file: "comparators/AxisymmetricSolution.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
       literature_dependencies: []
     - declaration: "CIVChallenge.interiorAnalyticity"
-      file: "comparators/Solution.lean"
+      file: "comparators/AxisymmetricSolution.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
       literature_dependencies: []
     - declaration: "CIVChallenge.forceUnderCore"
-      file: "comparators/Solution.lean"
+      file: "comparators/AxisymmetricSolution.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
@@ -307,8 +307,8 @@ automation:
     All Lean code was written by the listed models under the supervision of
     the authors, who decided the mathematics and the statements. Every proof
     is checked by the Lean kernel; the library contains no sorry and no custom
-    axiom. The Mathlib-only comparators/Challenge.lean contains exactly five
-    intentional theorem-body placeholders; the separate Solution.lean proves
+    axiom. The Mathlib-only comparators/AxisymmetricChallenge.lean contains exactly five
+    intentional theorem-body placeholders; the separate AxisymmetricSolution.lean proves
     the same named declarations from the library, and comparator.json selects
     all five.
 

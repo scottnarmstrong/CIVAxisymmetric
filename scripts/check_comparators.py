@@ -3,8 +3,8 @@
 # Released under Apache 2.0 license.
 """Check the comparator Challenge/Solution pair under `comparators/`.
 
-`comparators/Challenge.lean` states the five main results from Mathlib alone,
-with one intentional `sorry` each; `comparators/Solution.lean` repeats the
+`comparators/AxisymmetricChallenge.lean` states the five main results from Mathlib alone,
+with one intentional `sorry` each; `comparators/AxisymmetricSolution.lean` repeats the
 same definitions and statements verbatim and proves each theorem by applying
 the library's main-result statement. The Solution does not import the Challenge: they
 are separate Lean environments, compared by Comparator (see
@@ -54,8 +54,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from check_axioms import imported_modules, strip_comments  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
-CHALLENGE = Path("comparators/Challenge.lean")
-SOLUTION = Path("comparators/Solution.lean")
+CHALLENGE = Path("comparators/AxisymmetricChallenge.lean")
+SOLUTION = Path("comparators/AxisymmetricSolution.lean")
 NAMESPACE = "CIVChallenge"
 AXIOMS = ["propext", "Classical.choice", "Quot.sound"]
 TARGET_LINE_LIMIT = 500
@@ -137,8 +137,8 @@ def check_sources() -> None:
     names = [name for name, _ in THEOREMS]
     config = json.loads(read(Path("comparator.json")))
     require(config == {
-        "challenge_module": "comparators.Challenge",
-        "solution_module": "comparators.Solution",
+        "challenge_module": "comparators.AxisymmetricChallenge",
+        "solution_module": "comparators.AxisymmetricSolution",
         "theorem_names": [f"{NAMESPACE}.{name}" for name in names],
         "definition_names": [], "permitted_axioms": AXIOMS, "enable_nanoda": True,
     }, "comparator.json does not select exactly the five main theorems "
@@ -251,13 +251,13 @@ def check_proofs() -> None:
               "intentional `sorry`s.")
 
         rc, out = lean(SOLUTION, "-DwarningAsError=true",
-                       "-o", str(staging / "comparators/Solution.olean"))
+                       "-o", str(staging / "comparators/AxisymmetricSolution.olean"))
         require(rc == 0 and not out, f"Unexpected Solution diagnostics (rc {rc}): {out}")
         print("Solution: elaborates silently under "
               "-DautoImplicit=false -DwarningAsError=true.")
 
         probe = staging / "Axioms.lean"
-        probe.write_text("import comparators.Solution\n" + "".join(
+        probe.write_text("import comparators.AxisymmetricSolution\n" + "".join(
             f"#print axioms {NAMESPACE}.{name}\n" for name in names))
         rc, out = lean(probe, "-DwarningAsError=true", extra_path=staging)
         expected = [f"'{NAMESPACE}.{name}' depends on axioms: "

@@ -21,7 +21,7 @@ Theorems 1.1 (`thm:main`) and 1.3 (`thm:aniso:main`), Proposition 1.5
 (`cor:interior:nonanalytic`) of Constantin–Ignatova–Vicol, arXiv:2609.20803,
 with every definition they mention stated from Mathlib alone. The five theorem
 proofs are intentional placeholders. Comparator compares this environment with
-`Solution.lean`, which proves the same named declarations from the library.
+`AxisymmetricSolution.lean`, which proves the same named declarations from the library.
 
 Space is `Fin 3 → ℝ`; Euclidean lengths are written out as square roots of sums
 of squares. Space-time is the ordinary product `(Fin 3 → ℝ) × ℝ` with its

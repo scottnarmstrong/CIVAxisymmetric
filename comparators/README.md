@@ -1,13 +1,13 @@
 # Independent statements and proof comparison
 
-[Challenge.lean](Challenge.lean) states five results of Constantin–Ignatova–Vicol
+[AxisymmetricChallenge.lean](AxisymmetricChallenge.lean) states five results of Constantin–Ignatova–Vicol
 (arXiv:2609.20803) using only Mathlib imports. It contains every definition the
 statements mention, including the suitable weak-solution class of the
 Caffarelli–Kohn–Nirenberg formalization this library builds on. It ends with
 five intentional proof placeholders. A mathematical reader can compare it with
 the paper without reading the proof library.
 
-[Solution.lean](Solution.lean) repeats the same definitions and statements
+[AxisymmetricSolution.lean](AxisymmetricSolution.lean) repeats the same definitions and statements
 verbatim and proves each theorem by applying the library's statement
 under `CIV/Statements/`. It does not import the Challenge. The two are separate
 Lean environments, and importing both modules into one file would introduce

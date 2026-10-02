@@ -27,7 +27,7 @@ Theorems 1.1 (`thm:main`) and 1.3 (`thm:aniso:main`), Proposition 1.5
 (`cor:interior:nonanalytic`) of Constantin–Ignatova–Vicol, arXiv:2609.20803,
 with every definition they mention stated from Mathlib alone. The five theorem
 proofs are the library's theorems. This module repeats the definitions of
-`Challenge.lean` without importing its placeholder proofs; Comparator checks
+`AxisymmetricChallenge.lean` without importing its placeholder proofs; Comparator checks
 that the statement dependency closures of the two environments agree.
 
 Space is `Fin 3 → ℝ`; Euclidean lengths are written out as square roots of sums

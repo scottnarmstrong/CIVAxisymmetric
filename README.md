@@ -105,9 +105,9 @@ different route from the cited sources; see [the deviations](docs/DEVIATIONS.md)
 
 Because a formal statement is only as good as the definitions in it, five of
 the results are also restated in a standalone
-[Challenge](comparators/Challenge.lean) that uses Mathlib alone and defines
+[Challenge](comparators/AxisymmetricChallenge.lean) that uses Mathlib alone and defines
 every notion it mentions, including the suitable weak-solution class. The
-separate [Solution](comparators/Solution.lean) proves the same statements from
+separate [Solution](comparators/AxisymmetricSolution.lean) proves the same statements from
 the library, and [Comparator](comparators/README.md) checks the pair: the five
 are `thm:main`, `thm:aniso:main`, `prop:aniso:small`, `thm:analytic:interior`
 and `cor:interior:nonanalytic`. Reading the Challenge is the quickest way to
