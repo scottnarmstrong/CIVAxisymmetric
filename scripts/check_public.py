@@ -17,7 +17,7 @@ import check_axioms  # noqa: E402
 ROOT_FILES = {
     '.gitignore', 'CITATION.cff', 'CIV.lean', 'CONTRIBUTING.md', 'LICENSE',
     'README.md', 'formalization.yaml', 'lake-manifest.json', 'lakefile.toml',
-    'lean-toolchain', 'comparator.json',
+    'lean-toolchain', 'comparator.json', 'Challenge.lean', 'Solution.lean',
 }
 REQUIRED = ROOT_FILES | {'paper/NSE_Anisotropic_Pointwise.tex'}
 DIRECTORIES = {'CIV', 'comparators', 'docs', 'paper', 'scripts', '.github'}

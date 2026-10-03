@@ -1,6 +1,6 @@
 {
-  "challenge_module": "comparators.AxisymmetricChallenge",
-  "solution_module": "comparators.AxisymmetricSolution",
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
   "theorem_names": [
     "CIVChallenge.mainTheorem",
     "CIVChallenge.axisymmetricTheorem",

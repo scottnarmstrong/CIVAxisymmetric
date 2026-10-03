@@ -25,5 +25,5 @@ leanOptions = { autoImplicit = false, warningAsError = true }
 # from the library; see comparators/README.md.
 [[lean_lib]]
 name = "Comparators"
-globs = ["comparators.+"]
+globs = ["Challenge", "Solution"]
 leanOptions = { autoImplicit = false }

@@ -99,10 +99,10 @@ python3 scripts/build.py Comparators
 python3 scripts/check_comparators.py
 ```
 
-The [Challenge](../comparators/AxisymmetricChallenge.lean) states five of the results
+The [Challenge](../Challenge.lean) states five of the results
 (`thm:main`, `thm:aniso:main`, `prop:aniso:small`, `thm:analytic:interior`,
 `cor:interior:nonanalytic`) using Mathlib alone, with one intentional proof
-placeholder each. The separate [Solution](../comparators/AxisymmetricSolution.lean) proves
+placeholder each. The separate [Solution](../Solution.lean) proves
 the same named statements from the library. The local checker compares the
 source texts and the theorem statements with the library's and verifies the
 solutions' exact standard axiom sets; see the

@@ -145,7 +145,7 @@ def find_duplicates(root: Path, given: list[Path] | None = None) -> list[Duplica
             # This exact pair is never imported together; duplicates within
             # either file or involving any library file remain errors.
             if name.startswith("CIVChallenge.") and {first.path, second.path} == {
-                "comparators/AxisymmetricChallenge.lean", "comparators/AxisymmetricSolution.lean"
+                "Challenge.lean", "Solution.lean"
             }:
                 continue
             duplicates.append(Duplicate(name, first, second))

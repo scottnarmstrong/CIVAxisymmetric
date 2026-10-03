@@ -239,31 +239,31 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       literature_dependencies: []
     - declaration: "CIVChallenge.mainTheorem"
-      file: "comparators/AxisymmetricSolution.lean"
+      file: "Solution.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
       literature_dependencies: []
     - declaration: "CIVChallenge.axisymmetricTheorem"
-      file: "comparators/AxisymmetricSolution.lean"
+      file: "Solution.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
       literature_dependencies: []
     - declaration: "CIVChallenge.meridionalSmallness"
-      file: "comparators/AxisymmetricSolution.lean"
+      file: "Solution.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
       literature_dependencies: []
     - declaration: "CIVChallenge.interiorAnalyticity"
-      file: "comparators/AxisymmetricSolution.lean"
+      file: "Solution.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
       literature_dependencies: []
     - declaration: "CIVChallenge.forceUnderCore"
-      file: "comparators/AxisymmetricSolution.lean"
+      file: "Solution.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
@@ -307,8 +307,8 @@ automation:
     All Lean code was written by the listed models under the supervision of
     the authors, who decided the mathematics and the statements. Every proof
     is checked by the Lean kernel; the library contains no sorry and no custom
-    axiom. The Mathlib-only comparators/AxisymmetricChallenge.lean contains exactly five
-    intentional theorem-body placeholders; the separate AxisymmetricSolution.lean proves
+    axiom. The Mathlib-only Challenge.lean contains exactly five
+    intentional theorem-body placeholders; the separate Solution.lean proves
     the same named declarations from the library, and comparator.json selects
     all five.
 
@@ -354,27 +354,27 @@ alignment:
       lean: "CIV.mainTheorem"
       module: "CIV.Statements.MainTheorem"
       status: "proved"
-      note: "Comparator pair comparators/{Challenge,Solution}.lean."
+      note: "Comparator pair Challenge.lean and Solution.lean."
     - source: "Theorem 1.3 (thm:aniso:main), regularity of axisymmetric solutions under anisotropic bounds"
       lean: "CIV.axisymmetricTheorem"
       module: "CIV.Statements.AxisymmetricTheorem"
       status: "proved"
-      note: "Comparator pair comparators/{Challenge,Solution}.lean."
+      note: "Comparator pair Challenge.lean and Solution.lean."
     - source: "Proposition 1.5 (prop:aniso:small), smallness of the meridional quantities"
       lean: "CIV.meridionalSmallness"
       module: "CIV.Statements.MeridionalSmallnessProp"
       status: "proved"
-      note: "Comparator pair comparators/{Challenge,Solution}.lean."
+      note: "Comparator pair Challenge.lean and Solution.lean."
     - source: "Theorem 2.1 (thm:analytic:interior), interior spatial analyticity (Kahane)"
       lean: "CIV.interiorAnalyticity"
       module: "CIV.Statements.InteriorAnalyticity"
       status: "proved"
-      note: "Comparator pair comparators/{Challenge,Solution}.lean."
+      note: "Comparator pair Challenge.lean and Solution.lean."
     - source: "Corollary 2.3 (cor:interior:nonanalytic), the force under an axisymmetric core"
       lean: "CIV.forceUnderCore"
       module: "CIV.Statements.ForceUnderCore"
       status: "proved"
-      note: "Comparator pair comparators/{Challenge,Solution}.lean."
+      note: "Comparator pair Challenge.lean and Solution.lean."
     - source: "Lemma 3.1 (lem:aniso:axis), maximum principle for functions vanishing on the axis"
       lean: "CIV.axisMaximumPrinciple"
       module: "CIV.Statements.AxisMaximumPrinciple"
